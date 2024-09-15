@@ -1,20 +1,25 @@
 import React from 'react';
 import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { BiUser } from 'react-icons/bi';
 import { AiOutlineUnlock } from 'react-icons/ai';
+import sidepic from '../../assets/sidepic.jpg';
 import * as Yup from 'yup';
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email format').required('Required'),
     password: Yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
   });
 
   return (
+    <div  className="text-white h-[100vh] flex justify-center items-center bg-cover"
+    style={{ backgroundImage: `url(${sidepic})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover' }}>
     <div className='bg-slate-900 border border-slate-400 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative'>
-      <h1 className='text-4xl text-white font-bold text-center mb-6'>Log In</h1>
+      <h1 className='text-4xl text-white font-bold text-center mb-6'>Login</h1>
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={validationSchema}
@@ -24,15 +29,14 @@ const Login = () => {
             password: values.password,
           })
           .then(response => {
-            localStorage.setItem('token', response.data.token);
             console.log('User logged in successfully:', response.data);
-            // Redirect to landing page
-            window.location.href = '/landing';
+            // Redirect to dashboard
+            navigate('/dashboard');
           })
           .catch(error => {
             console.error('There was an error logging in the user:', error);
             // Display error message
-          });          
+          });
         }}
       >
         {({ isSubmitting }) => (
@@ -69,28 +73,17 @@ const Login = () => {
               <AiOutlineUnlock className='absolute top-4 right-4' />
               <ErrorMessage name='password' component='div' className='text-red-500 text-sm mt-1' />
             </div>
-            <div className='flex justify-between items-center'>
-              <div className='flex gap-2 items-center'>
-                <Field type='checkbox' name='rememberMe' id='rememberMe' />
-                <label htmlFor='rememberMe'>Remember Me</label>
-              </div>
-              <Link to='' className='text-purple-500 underline'>Forget Password?</Link>
-            </div>
             <button
               type='submit'
               className='w-full mb-4 text-[18px] mt-6 rounded-full bg-purple-200 text-purple-800 hover:bg-red-400 hover:text-white py-2 transition-colors duration-300'
               disabled={isSubmitting}
             >
-              Log In
+              Login
             </button>
-            <div>
-              <span className='mt-6'>
-                Don't have an Account? <Link to='/register' className='text-purple-500'>Register</Link>
-              </span>
-            </div>
           </Form>
         )}
       </Formik>
+    </div>
     </div>
   );
 };

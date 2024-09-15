@@ -1,46 +1,30 @@
 import React, { useState } from 'react';
 import logo from '../../assets/logo.png';
-import { FaBars, FaSearch, FaQuestionCircle, FaCog, FaUserCircle } from 'react-icons/fa';
+import { FaSearch, FaQuestionCircle, FaCog, FaUserCircle } from 'react-icons/fa';
 
 const Header = () => {
-  const [searchDropdown, setSearchDropdown] = useState(false);
   const [createDropdown, setCreateDropdown] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const toggleSearchDropdown = () => {
-    setSearchDropdown(!searchDropdown);
-  };
 
   const toggleCreateDropdown = () => {
     setCreateDropdown(!createDropdown);
   };
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
   return (
     <>
       {/* Header Component */}
-      <header className="flex items-center justify-between p-4 bg-gray-800 text-white">
+      <header className="fixed top-0 left-0 w-full z-50 flex items-center justify-between p-4 bg-gray-800 text-white">
         <div className="flex items-center">
           {/* Logo and Project Name */}
           <img src={logo} alt="Logo" className="h-8 w-8 mr-2" />
           <span className="text-xl font-bold">Templatrove</span>
         </div>
 
-        {/* Hamburger menu for small screens */}
-        <div className="lg:hidden">
-          <FaBars className="text-xl cursor-pointer" onClick={toggleMenu} />
-        </div>
-
-        {/* Main Menu - Hidden on small screens */}
-        <div className={`lg:flex items-center space-x-4 ${menuOpen ? 'block' : 'hidden'}`}>
+        {/* Main Menu */}
+        <div className="flex items-center space-x-4">
           {/* Search Bar */}
           <div className="relative">
             <div
               className="flex items-center bg-gray-700 rounded-full px-4 py-2 cursor-pointer"
-              onClick={toggleSearchDropdown}
             >
               <FaSearch className="text-gray-400 mr-2" />
               <input

@@ -5,8 +5,8 @@ const jwt = require("jsonwebtoken");
 
 // Register User
 const registerUser = expressAsyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
     res.status(400);
     throw new Error("All fields are mandatory");
   }

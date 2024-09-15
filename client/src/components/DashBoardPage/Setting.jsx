@@ -2,7 +2,7 @@ import React from 'react'
 
 const Setting = () => {
   return (
-    <div>
+    <div className='py-5'>
       Change your Settings
     </div>
   )
