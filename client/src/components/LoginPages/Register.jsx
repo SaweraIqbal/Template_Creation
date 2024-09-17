@@ -12,9 +12,6 @@ const Register = () => {
     username: Yup.string().min(3, 'Username must be at least 3 characters').required('Required'),
     email: Yup.string().email('Invalid email format').required('Required'),
     password: Yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords must match')
-      .required('Required'),
   });
 
   return (
@@ -23,10 +20,10 @@ const Register = () => {
       <div className='bg-slate-900 border border-slate-400 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative'>
       <h1 className='text-4xl text-white font-bold text-center mb-6'>Register</h1>
       <Formik
-        initialValues={{ username: '', email: '', password: '', confirmPassword: '' }}
+        initialValues={{ username: '', email: '', password: '' }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          axios.post('http://localhost:5000/api/auth/register', {
+          axios.post('http://localhost:5050/api/auth/register', {
             username: values.username,
             email: values.email,
             password: values.password,
@@ -34,7 +31,7 @@ const Register = () => {
           .then(response => {
             console.log('User registered successfully:', response.data);
             // Redirect to login page
-            window.location.href = '/';
+            window.location.href = '/login';
           })
           .catch(error => {
             console.error('There was an error registering the user:', error);

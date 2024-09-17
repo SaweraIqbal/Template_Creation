@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import ProfileImage from '../../assets/ProfileImage.avif'; // Replace with the correct path to your image
+import ProfileImage from '../../assets/ProfileImage.avif'; 
 import {
   setHeroTitle,
   setHeroDescription,
@@ -13,7 +13,7 @@ import {
   setSkillIcon,
   setStat
 } from '../../store/slices/portfolioSlice';
-
+        
 const Portfolio = () => {
   const dispatch = useDispatch();
   const {

@@ -6,8 +6,11 @@ import { BiUser } from 'react-icons/bi';
 import { AiOutlineUnlock } from 'react-icons/ai';
 import sidepic from '../../assets/sidepic.jpg';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../store/slices/userSlice';
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const validationSchema = Yup.object({
@@ -24,19 +27,22 @@ const Login = () => {
         initialValues={{ email: '', password: '' }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          axios.post('http://localhost:5000/api/auth/login', {
-            email: values.email,
-            password: values.password,
-          })
-          .then(response => {
-            console.log('User logged in successfully:', response.data);
-            // Redirect to dashboard
-            navigate('/dashboard');
-          })
-          .catch(error => {
-            console.error('There was an error logging in the user:', error);
-            // Display error message
-          });
+axios.post('http://localhost:5050/api/auth/login', {
+  email: values.email,
+  password: values.password,
+})
+.then(response => {
+  const { username, email, accessToken } = response.data;
+  // Dispatch to Redux
+  dispatch(setUser({ username, email, token: accessToken }));
+  
+  // Redirect to dashboard
+  navigate('/dashboard/home');
+})
+.catch(error => {
+  console.error('Error logging in the user:', error);
+});
+
         }}
       >
         {({ isSubmitting }) => (

@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import logo from '../../assets/logo.png';
-import { FaSearch, FaQuestionCircle, FaCog, FaUserCircle } from 'react-icons/fa';
+import { FaSearch, FaUserCircle } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 const Header = () => {
   const [createDropdown, setCreateDropdown] = useState(false);
-
+  const username = useSelector((state) => state.user.username);
+  const navigate = useNavigate();
   const toggleCreateDropdown = () => {
     setCreateDropdown(!createDropdown);
   };
-
+ 
+  // Function to handle profile icon click
+  const handleProfileClick = () => {
+    navigate('/dashboard/setting'); // Navigate to the settings page
+  };
   return (
     <>
       {/* Header Component */}
@@ -37,11 +44,6 @@ const Header = () => {
 
           {/* Icons and Buttons */}
           <div className="flex items-center space-x-4">
-            {/* Help Icon */}
-            <FaQuestionCircle className="text-xl cursor-pointer" />
-
-            {/* Settings Icon */}
-            <FaCog className="text-xl cursor-pointer" />
 
             {/* Create a New Design Button */}
             <div className="relative">
@@ -69,7 +71,8 @@ const Header = () => {
             </div>
 
             {/* Profile Icon */}
-            <FaUserCircle className="text-3xl cursor-pointer" />
+            {username && <span className="text-[12px] font-semibold">Welcome, {username}!</span>}
+            <FaUserCircle className="text-3xl cursor-pointer" onClick={handleProfileClick}/>
           </div>
         </div>
       </header>

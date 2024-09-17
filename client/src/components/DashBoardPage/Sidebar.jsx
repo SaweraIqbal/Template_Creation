@@ -5,9 +5,9 @@ import {
   Table,
   Flag,
   Settings,
-  LifeBuoy,
 } from "lucide-react"; // Icons
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { FaQuestionCircle } from "react-icons/fa";
 
 const Sidebar = () => {
   const navigate = useNavigate(); // useNavigate hook for navigation
@@ -19,7 +19,7 @@ const Sidebar = () => {
     { icon: <Table size={20} />, text: "Templates", page: "content" },
     { icon: <Flag size={20} />, text: "Reporting", page: "reporting" },
     { icon: <Settings size={20} />, text: "Settings", page: "setting" },
-    { icon: <LifeBuoy size={20} />, text: "Help", page: "help" },
+    { icon: <FaQuestionCircle size={20} />, text: "Help", page: "help" },
   ];
 
   const handleNavigation = (page) => {

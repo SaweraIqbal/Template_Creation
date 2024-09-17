@@ -7,32 +7,30 @@ const jwt = require("jsonwebtoken");
 const registerUser = expressAsyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
-    res.status(400);
-    throw new Error("All fields are mandatory");
+    res.status(400).json({ message: "All fields are mandatory" });
+    return;
   }
 
   const userAvailable = await User.findOne({ email });
   if (userAvailable) {
-    res.status(400);
-    throw new Error("User already registered");
+    res.status(400).json({ message: "User already registered" });
+    return;
   }
 
   // Hash password
   const hashedPassword = await bcrypt.hash(password, 10);
-  console.log("Hashed password:", hashedPassword);
 
   // Create user
   const user = await User.create({
+    username,
     email,
     password: hashedPassword,
   });
 
-  console.log(`Created ${user}`);
   if (user) {
-    res.status(201).json({ _id: user.id, email: user.email });
+    res.status(201).json({ username: user.username, _id: user.id, email: user.email });
   } else {
-    res.status(400);
-    throw new Error("User data is not valid");
+    res.status(400).json({ message: "User data is not valid" });
   }
 });
 
@@ -41,8 +39,8 @@ const authUser = expressAsyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    res.status(400);
-    throw new Error("All fields are mandatory");
+    res.status(400).json({ message: "All fields are mandatory" });
+    return;
   }
 
   const user = await User.findOne({ email });
@@ -57,15 +55,15 @@ const authUser = expressAsyncHandler(async (req, res) => {
       },
       process.env.ACCESS_TOKEN_SECRET,
       {
-        expiresIn: "1m",
+        expiresIn: "10m",
       }
     );
-    // console.log("Access Token Secret:", process.env.ACCESS_TOKEN_SECRET);
 
-    res.status(200).json({ accessToken });
+    console.log('User data:', { username: user.username, email: user.email, accessToken });
+
+    res.status(200).json({ username: user.username, email: user.email, accessToken });
   } else {
-    res.status(401);
-    throw new Error("Invalid email or password");
+    res.status(401).json({ message: "Invalid email or password" });
   }
 });
 
