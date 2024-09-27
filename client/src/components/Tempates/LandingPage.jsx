@@ -15,6 +15,7 @@ import {
   setButtonText,
   setFooterItem,
 } from '../../store/slices/landingPageSlice';
+import useDownloadImage from '../customHook/useDownloadImage';
 
 const images = [
   { src: image1Template2, alt: 'Image 1' },
@@ -33,7 +34,11 @@ const LandingPage = () => {
     footerItems,
     isEditing,
   } = useSelector((state) => state.landingPage);
+  const downloadImage = useDownloadImage();
 
+  const handleDownloadClick = () => {
+    downloadImage('.download-container ', 'LandingPage.png');
+  };
   const handleEditChange = (field, value) => {
     dispatch(field(value));
   };
@@ -43,7 +48,8 @@ const LandingPage = () => {
   };
 
   return (
-    <div className='mt-4'>
+    <>
+    <div className='download-container mt-4'>
       {/* Header */}
       <div className="bg-blue-950">
         <div className="container flex items-center justify-between p-4">
@@ -169,9 +175,9 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-
-      {/* Edit/Save Buttons */}
-      <div className="flex justify-center mt-4">
+    </div>
+    {/* Edit/Save Buttons */}
+    <div className="flex justify-center mt-4">
         <button
           onClick={handleToggleEdit}
           className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 text-[8px]"
@@ -179,7 +185,10 @@ const LandingPage = () => {
           {isEditing ? 'Save' : 'Edit'}
         </button>
       </div>
-    </div>
+    <div className="flex justify-end text-black ">
+     <button onClick={handleDownloadClick}>Download</button>
+     </div>
+  </>
   );
 };
 

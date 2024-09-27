@@ -1,9 +1,16 @@
 import React from 'react';
 import { FaFacebook, FaLinkedin, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import useDownloadImage from '../customHook/useDownloadImage';
 
 const Contact = () => {
+  const downloadImage = useDownloadImage();
+
+  const handleDownloadClick = () => {
+    downloadImage('.download-container ', 'Contact.png');
+  };
   return (
-    <div className="flex flex-col mt-2">
+    <>
+    <div className="download-container flex flex-col mt-2">
       {/* Left Side */}
       <div className="flex-1 bg-slate-800 p-4 w-full text-white">
         <h1 className="text-[12px] font-bold mb-2">Contact Us</h1>
@@ -71,6 +78,10 @@ const Contact = () => {
         </div>
       </div>
     </div>
+     <div className="flex justify-end ">
+     <button onClick={handleDownloadClick}>Download</button>
+     </div>
+     </>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ProfileImage from "../../assets/ProfileImage.avif";
+import useDownloadImage from "../customHook/useDownloadImage";
 
 const ProfilePage = () => {
   const [name, setName] = useState("Angela Zafirovska");
@@ -7,14 +8,19 @@ const ProfilePage = () => {
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("Macedonia");
   const [website, setWebsite] = useState("");
+  const downloadImage = useDownloadImage();
 
+  const handleDownloadClick = () => {
+    downloadImage('.download-container ', 'Setting.png');
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission, e.g., send the form data to an API or log it
     console.log({ name, username, email, location, website });
   };
   return (
-    <div className=" flex bg-gray-100">
+    <>
+    <div className="download-container flex bg-gray-100">
       {/* Sidebar */}
       <aside className="w-1/4 bg-white shadow-md p-4">
         <div className="text-center mb-8">
@@ -139,6 +145,10 @@ const ProfilePage = () => {
         </div>
       </main>
     </div>
+    <div className="flex justify-end text-black">
+     <button onClick={handleDownloadClick}>Download</button>
+     </div>
+    </>
   );
 };
 

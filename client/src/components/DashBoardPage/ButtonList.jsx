@@ -3,7 +3,7 @@ import React from "react";
 const ButtonList = ({ setSelectedTemplate }) => {
   return (
     <div className="w-1/3 flex flex-col items-center space-y-4">
-      <h1 className="text-xl font-semibold text-center text-blue-900 mb-2 py-3">
+      <h1 className="text-xl font-semibold text-center text-blue-900 mb-2 py-10">
         Customizable Templates
       </h1>
       {/* Buttons */}
@@ -35,7 +35,7 @@ const ButtonList = ({ setSelectedTemplate }) => {
         onClick={() => setSelectedTemplate("Setting Page")}
         className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600 transition-colors w-1/2"
       >
-        Setting Page
+        Profile Page
       </button>
       <button
         onClick={() => setSelectedTemplate("FAQs Page")}

@@ -4,11 +4,17 @@ import logo from '../../assets/logo.png';
 import image1Template2 from '../../assets/image1Template2.jpg';
 import image2Template2 from '../../assets/image2Template2.png';
 import image3Template2 from '../../assets/image3Template2.jpg';
-import backgroundVideo from '../../assets/backgroundVideo.mp4'; // Example video
+import useDownloadImage from '../customHook/useDownloadImage';
 
 const Dashboard = () => {
+  const downloadImage = useDownloadImage();
+
+  const handleDownloadClick = () => {
+    downloadImage('.download-container ', 'Dashboard.png');
+  };
   return (
-    <div className=" bg-slate-400 flex flex-col my-5">
+    <>
+    <div className="download-container bg-slate-400 flex flex-col my-5">
       {/* Header */}
       <header className="bg-gray-700 shadow-md flex w-full items-center justify-between h-14 px-4">
         <div className="flex items-center space-x-4">
@@ -56,13 +62,17 @@ const Dashboard = () => {
             <ImageCard media={image1Template2} description="Project 1" />
             <ImageCard media={image2Template2} description="Project 2" />
             <ImageCard media={image3Template2} description="Project 3" />
-            <ImageCard media={image1Template2} description="Project 1" />
-            <ImageCard media={image2Template2} description="Project 2" />
-            <ImageCard media={image3Template2} description="Project 3" />
+            <ImageCard media={image1Template2} description="Project 4" />
+            <ImageCard media={image2Template2} description="Project 5" />
+            <ImageCard media={image3Template2} description="Project 6" />
           </div>
         </section>
       </div>
     </div>
+    <div className="flex justify-end text-black">
+     <button onClick={handleDownloadClick}>Download</button>
+     </div>
+    </>
   );
 };
 

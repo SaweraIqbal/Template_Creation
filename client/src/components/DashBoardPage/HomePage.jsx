@@ -25,11 +25,6 @@ const templates = [
 ];
 
 const Home = () => {
-  // const navigate = useNavigate(); // Hook to navigate to other routes
-
-  // const handleTemplateClick = (route) => {
-  //   navigate(`/dashboard/${route}`); // Navigate to the template page
-  // };
 
   return (
     <div className="px-5 mt-5">
@@ -53,7 +48,6 @@ const Home = () => {
           <div
             key={index}
             className="flex flex-col items-center justify-center p-4 rounded-lg shadow-md cursor-pointer"
-            // onClick={() => handleTemplateClick(template.route)} // Navigate on click
           >
           <a href="/dashboard/content">  <img
               src={template.image}

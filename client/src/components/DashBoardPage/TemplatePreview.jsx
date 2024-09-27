@@ -1,5 +1,5 @@
 import React from "react";
-import HomePage from "../Tempates/HomePage"; // Import your templates
+import HomePage from "../Tempates/HomePage"; 
 import LandingPage from "../Tempates/LandingPage";
 import Dashboard from "../Tempates/Dashboard";
 import Portfolio from "../Tempates/Portfolio";
@@ -31,9 +31,9 @@ const TemplatePreview = ({ selectedTemplate }) => {
   };
 
   return (
-    <div className="w-1/2 bg-white rounded-lg shadow-lg p-5">
-        <h2 className="text-lg font-semibold text-gray-800">Template Preview</h2>
-      <div className="h-1/2 text-gray-600 w-4/5 ml-10">{renderTemplate()}</div>
+    <div className="w-1/2 bg-white rounded-lg shadow-lg p-5 mt-10">
+        {/* <h2 className="text-lg font-semibold text-gray-800">Template Preview</h2> */}
+      <div className="h-1/2 w-4/5 ml-10 text-black">{renderTemplate()}</div>
     </div>
   );
 };

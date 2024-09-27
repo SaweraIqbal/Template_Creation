@@ -13,6 +13,7 @@ import {
   setSkillIcon,
   setStat
 } from '../../store/slices/portfolioSlice';
+import useDownloadImage from '../customHook/useDownloadImage';
         
 const Portfolio = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,12 @@ const Portfolio = () => {
 
   // Manage the editable state
   const [isEditing, setIsEditing] = useState(false);
+  const downloadImage = useDownloadImage();
 
+  const handleDownloadClick = () => {
+    downloadImage('.download-container', 'Portfolio.png');
+  };
+  
   const handleEditChange = (action, value) => {
     dispatch(action(value));
   };
@@ -53,7 +59,8 @@ const Portfolio = () => {
   };
 
   return (
-    <div>
+    <>
+    <div className='download-container'>
       {/* Hero Section */}
       <section className="flex justify-between items-center py-5 px-3 bg-white">
         {/* Left Side - Text and Buttons */}
@@ -250,9 +257,9 @@ const Portfolio = () => {
           ))}
         </div>
       </div>
-
-      {/* Edit/Save Button at the Bottom */}
-      <div className="flex justify-center p-2">
+    </div>
+     {/* Edit/Save Button at the Bottom */}
+     <div className="flex justify-center p-2">
         <button
           onClick={toggleEditing}
           className="px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] hover:bg-blue-700"
@@ -260,7 +267,10 @@ const Portfolio = () => {
           {isEditing ? 'Save' : 'Edit'}
         </button>
       </div>
-    </div>
+    <div className="flex justify-end text-black">
+     <button onClick={handleDownloadClick}>Download</button>
+     </div>
+    </>
   );
 };
 

@@ -13,6 +13,9 @@ const userSchema  = mongoose.Schema({
     type : String,
     required: [true,"Please add the password" ],
   },
+  profilePic: {
+    type: String, // Store the URL or path to the profile picture
+  },
 },
 {
   timestamps : true,

@@ -13,17 +13,23 @@ import {
 import heroImage from '../../assets/heroImage.png';
 import profileImage from '../../assets/profileImage.jpg';
 import background from '../../assets/background.jpg';
+import useDownloadImage from '../customHook/useDownloadImage';
 
 const HomePage = () => {
   const dispatch = useDispatch();
+  const downloadImage = useDownloadImage();
   const { editMode, title, navItems, heroText, heroSubText, footerText, buttonText } = useSelector((state) => state.homePage);
 
   const handleChange = (e, action) => {
     dispatch(action(e.target.value));
   };
 
+  const handleDownloadClick = () => {
+    downloadImage('.download-container ', 'HomePage.png');
+  };
   return (
-    <div className="flex flex-col ">
+    <>
+    <div className="download-container flex flex-col ">
       {/* Header Section */}
       <header className="bg-gray-800 text-white p-4 flex items-center justify-between">
         {/* Logo and Title */}
@@ -146,13 +152,13 @@ const HomePage = () => {
             </div>
           ))}
         </div>
-        <div className="mt-4 md:mt-4 text-center text-gray-400 text-[8px]">
+        <div className="mt-2 md:mt-2 text-center text-gray-400 text-[8px]">
           &copy; 2024 My Website. All Rights Reserved.
         </div>
       </footer>
-
-      {/* Edit Button */}
-      <div className="flex justify-end p-4">
+    </div>
+     {/* Edit Button */}
+     <div className="flex justify-end p-4">
         <button
           onClick={() => dispatch(toggleEditMode())}
           className="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition duration-300 text-xs"
@@ -160,7 +166,10 @@ const HomePage = () => {
           {editMode ? 'Save' : 'Edit'}
         </button>
       </div>
-    </div>
+      <div className="flex justify-end text-black">
+      <button onClick={handleDownloadClick}>Download</button>
+      </div>
+    </>
   );
 };
 

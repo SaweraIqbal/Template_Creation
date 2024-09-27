@@ -6,8 +6,9 @@ const ContentSection = () => {
   const [selectedTemplate, setSelectedTemplate] = useState(""); // State to track selected template
 
   return (
-    <div className="grid-1 bg-slate-400 h-screen flex flex-col items-center  py-5">
-      {/* Divide the section into two parts */}
+    <div className="grid-1 min-h-screen flex flex-col items-center">
+
+      {/* Divide the screen into two parts */}
       <div className="flex w-full h-full p-0 space-x-8">
         {/* Left section - Buttons */}
         <ButtonList setSelectedTemplate={setSelectedTemplate} />

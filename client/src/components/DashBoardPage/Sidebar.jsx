@@ -6,7 +6,7 @@ import {
   Flag,
   Settings,
 } from "lucide-react"; // Icons
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 import { FaQuestionCircle } from "react-icons/fa";
 
 const Sidebar = () => {
@@ -51,11 +51,6 @@ const Sidebar = () => {
           </ul>
         </nav>
       </aside>
-
-      {/* Main Content Area */}
-      {/* <div className="grid  mt-16 overflow-y-auto h-[calc(100vh-4rem)]"> */}
-        {/* Content will be displayed via the routes */}
-      {/* </div> */}
     </div>
   );
 };

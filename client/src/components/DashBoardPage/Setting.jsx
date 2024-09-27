@@ -1,27 +1,55 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { FaCamera } from 'react-icons/fa';
+import { useState } from 'react';
+import axios from 'axios';
+import { setUser } from '../../store/slices/userSlice';
 
-const ProfilePage = () => {
-  const { username, email } = useSelector((state) => state.user);
-  const [profileImage, setProfileImage] = useState(null);
+const Setting = () => {
+  const { username, email, profilePic, id } = useSelector((state) => state.user); // fetch data from redux store
+  const [profileImage, setProfileImage] = useState(profilePic);
+  const dispatch = useDispatch();
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
-    if (file) {
-      // Show uploaded image
-      setProfileImage(URL.createObjectURL(file));
+    
+    // Check if file size exceeds 2MB
+    const maxSize = 2 * 1024 * 1024; // 2MB
+    if (file.size > maxSize) {
+      alert("File size exceeds 2MB, please choose a smaller file.");
+      return;
     }
+  
+    const reader = new FileReader();
+  
+    reader.onloadend = () => {
+      const base64String = reader.result;
+  
+      axios.put(`http://localhost:5050/api/auth/${id}/pic`, {
+        profilePic: base64String
+      })
+      .then(response => {
+        console.log('Profile picture updated:', response.data.profilePic);
+  
+        // Update Redux state with the new profile picture URL
+        dispatch(setUser({ username, email, id, profilePic: response.data.profilePic }));
+        setProfileImage(response.data.profilePic); // Update local state to reflect changes immediately
+      })
+      .catch(error => {
+        console.error('Error updating profile picture:', error);
+      });
+    };
+  
+    reader.readAsDataURL(file); // Convert image to base64
   };
-
+  
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100 p-8">
+    <div className="flex justify-center items-center h-screen p-8">
       <div className="bg-white p-8 rounded-lg shadow-lg flex items-center space-x-8">
         {/* Profile Image Section */}
         <div className="flex flex-col items-center">
           <div className="relative">
             <img
-              src={profileImage || 'https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg'} // Default placeholder image if no image is uploaded
+              src={profileImage} 
               alt="Profile"
               className="w-32 h-32 rounded-full object-cover"
             />
@@ -39,12 +67,6 @@ const ProfilePage = () => {
               onChange={handleImageUpload}
             />
           </div>
-          <button
-            className="mt-4 bg-blue-500 text-white py-2 px-4 rounded"
-            onClick={() => document.getElementById('imageUpload').click()}
-          >
-            Upload Image
-          </button>
         </div>
 
         {/* User Info Section */}
@@ -57,4 +79,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default Setting;

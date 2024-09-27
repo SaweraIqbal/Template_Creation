@@ -6,16 +6,18 @@ import { useNavigate } from 'react-router';
 
 const Header = () => {
   const [createDropdown, setCreateDropdown] = useState(false);
-  const username = useSelector((state) => state.user.username);
+  const { username, profilePic } = useSelector((state) => state.user); // Get profilePic, username from Redux
   const navigate = useNavigate();
+
   const toggleCreateDropdown = () => {
     setCreateDropdown(!createDropdown);
   };
- 
+
   // Function to handle profile icon click
   const handleProfileClick = () => {
     navigate('/dashboard/setting'); // Navigate to the settings page
   };
+
   return (
     <>
       {/* Header Component */}
@@ -70,9 +72,18 @@ const Header = () => {
               )}
             </div>
 
-            {/* Profile Icon */}
+            {/* Profile Icon or Picture */}
             {username && <span className="text-[12px] font-semibold">Welcome, {username}!</span>}
-            <FaUserCircle className="text-3xl cursor-pointer" onClick={handleProfileClick}/>
+            {profilePic ? (
+              <img
+                src={profilePic}
+                alt="Profile"
+                className="h-8 w-8 rounded-full object-cover cursor-pointer"
+                onClick={handleProfileClick}
+              />
+            ) : (
+              <FaUserCircle className="text-3xl cursor-pointer" onClick={handleProfileClick} />
+            )}
           </div>
         </div>
       </header>
